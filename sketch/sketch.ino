@@ -8,8 +8,8 @@ void setup() {
 
 void loop() {
   myServo.write(0);    // サーボを0度に設定
-  delay(2500);         // 1秒待つ
+  delay(250);         // 1秒待つ
 
   myServo.write(90);   // サーボを90度に設定
-  delay(2500);         // 1秒待つ
+  delay(250);         // 1秒待つ
 }
