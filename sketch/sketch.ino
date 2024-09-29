@@ -1,15 +1,24 @@
-#include <Servo.h>
+#include <Stepper.h>
 
-Servo myServo;  // Servoオブジェクトを作成
+const int stepsPerRevolution = 2048;  // 28BYJ-48は一回転あたり2048ステップ
+
+// ステッピングモーターを制御するためのStepクラスのインスタンス
+Stepper myStepper(stepsPerRevolution, 8, 10, 9, 11);
 
 void setup() {
-  myServo.attach(9);  // サーボモーターの信号線をデジタルピン9に接続
+  // モーターのスピードを設定
+  myStepper.setSpeed(10);  // 速度は10RPM
+  Serial.begin(9600);
 }
 
 void loop() {
-  myServo.write(0);    // サーボを0度に設定
-  delay(250);         // 1秒待つ
+  // 時計回りに1回転
+  Serial.println("時計回りに1回転");
+  myStepper.step(stepsPerRevolution);
+  delay(1000);
 
-  myServo.write(90);   // サーボを90度に設定
-  delay(250);         // 1秒待つ
+  // 反時計回りに1回転
+  Serial.println("反時計回りに1回転");
+  myStepper.step(-stepsPerRevolution);
+  delay(1000);
 }
