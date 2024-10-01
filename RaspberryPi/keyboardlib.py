@@ -30,4 +30,3 @@ def listen():
     return key_listener_unix()
 
 
-print(listen())
