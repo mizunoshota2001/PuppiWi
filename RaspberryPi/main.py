@@ -2,12 +2,7 @@ import threading
 import keyboardlib
 import puppetlib
 
-# 押されたキーを保存するリスト
-pressed_keys = []
-exit_flag = False  # 終了フラグ
 
-# ロックオブジェクト（スレッド間の競合を防ぐため）
-lock = threading.Lock()
 
 
 def process_key(key: str):
@@ -37,11 +32,7 @@ def process_key(key: str):
 
 def listener():
     key = keyboardlib.listen()
-    with lock:
-        pressed_keys.append(key)
-        # 処理を新しいスレッドで実行
-        threading.Thread(target=process_key, args=(
-            key,), daemon=True).start()
+    process_key(key)
     listener()
 
 
