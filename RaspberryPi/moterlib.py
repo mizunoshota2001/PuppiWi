@@ -16,11 +16,9 @@ class Servo:
     def __duty(self, angle):
         return (angle / 18) + 2  # 角度をデューティサイクルに変換 (0°=2%, 180°=12%)
 
-    def move(self, angle, duration, default=0, delay=0.5):
+    def move(self, angle: int, duration: int):
         self.pwm.ChangeDutyCycle(self.__duty(angle))
         time.sleep(duration)
-        self.pwm.ChangeDutyCycle(self.__duty(default))
-        time.sleep(delay)
         self.pwm.ChangeDutyCycle(0)  # サーボを停止
 
     def cleanup(self):
