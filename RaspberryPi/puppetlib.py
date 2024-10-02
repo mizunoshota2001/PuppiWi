@@ -20,7 +20,7 @@ def head(moter: moterlib.Servo = MOTERS["head"]):
     moter.move()
 
 
-def cc(moter: moterlib.Steppe = MOTERS["leg"]):
+def cc(moter: moterlib.Stepper = MOTERS["leg"]):
     moter.move('CW', 2)  # 時計回りに2秒間回転
 
 
