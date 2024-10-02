@@ -1,5 +1,6 @@
 import threading
 import keyboardlib
+import puppetlib
 
 # 押されたキーを保存するリスト
 pressed_keys = []
@@ -17,6 +18,7 @@ def process_key(key: str):
     """
     if key == 'a':
         print("左手")
+        puppetlib.left()
     elif key == 's':
         print("下を向く")
     elif key == 'd':
