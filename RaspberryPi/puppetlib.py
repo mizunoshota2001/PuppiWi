@@ -9,7 +9,7 @@ MOTERS = {
 
 
 def left(moter: moterlib.Servo = MOTERS["left"]):
-    moter.move(1,1)
+    moter.move(90,1)
 
 
 def right(moter: moterlib.Servo = MOTERS["right"]):

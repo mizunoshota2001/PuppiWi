@@ -13,16 +13,14 @@ class Servo:
         self.pwm = GPIO.PWM(self.pin, 50)  # 50Hzで初期化
         self.pwm.start(0)  # 初期デューティーサイクルは0
 
-    def move(self, angle, duration):
-        """
-        サーボを指定角度に動かし、指定時間その状態を維持します。
+    def __duty(self, angle):
+        return (angle / 18) + 2  # 角度をデューティサイクルに変換 (0°=2%, 180°=12%)
 
-        :param angle: サーボを動かす角度 (0-180)
-        :param duration: 指定角度に維持する秒数
-        """
-        duty_cycle = (angle / 18) + 2  # 角度をデューティサイクルに変換 (0°=2%, 180°=12%)
-        self.pwm.ChangeDutyCycle(duty_cycle)
+    def move(self, angle, duration, default=0, delay=0.5):
+        self.pwm.ChangeDutyCycle(self.__duty(angle))
         time.sleep(duration)
+        self.pwm.ChangeDutyCycle(self.__duty(default))
+        time.sleep(delay)
         self.pwm.ChangeDutyCycle(0)  # サーボを停止
 
     def cleanup(self):
