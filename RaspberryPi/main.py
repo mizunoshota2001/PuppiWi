@@ -21,12 +21,16 @@ def process_key(key: str):
         puppetlib.left()
     elif key == 's':
         print("下を向く")
+        puppetlib.head()
     elif key == 'd':
         print("右手")
+        puppetlib.right()
     elif key == 'q':
         print("左旋回")
+        puppetlib.cc()
     elif key == 'e':
         print("右旋回")
+        puppetlib.ccw()
     else:
         print(f"未定義のキー '{key.upper()}' が押されました。")
 

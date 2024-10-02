@@ -24,34 +24,52 @@ class Servo:
     def cleanup(self):
         self.pwm.stop()
 
+class Stepper28BYJ:
+    # フルステップモードのシーケンス
+    STEP_SEQUENCE = [
+        [1, 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1]
+    ]
 
-class Stepper:
-    def __init__(self, step_pin, dir_pin):
-        self.step_pin = step_pin
-        self.dir_pin = dir_pin
-        GPIO.setup(self.step_pin, GPIO.OUT)
-        GPIO.setup(self.dir_pin, GPIO.OUT)
+    def __init__(self, pin1, pin2, pin3, pin4):
+        self.pins = [pin1, pin2, pin3, pin4]
+        GPIO.setmode(GPIO.BCM)
+        for pin in self.pins:
+            GPIO.setup(pin, GPIO.OUT)
+            GPIO.output(pin, GPIO.LOW)
+        self.step_count = len(self.STEP_SEQUENCE)
+        self.current_step = 0
 
-    def move(self, direction, duration):
-        """
-        ステッピングモーターを指定された方向に指定時間回転させます。
+    def __set_step(self, step):
+        for pin, value in zip(self.pins, step):
+            GPIO.output(pin, value)
 
-        :param direction: 回転方向 ('CW'または'CCW')
-        :param duration: モーターを回転させる秒数
-        """
+    def move(self, direction, duration, delay=0.002):
         # 回転方向を設定
         if direction == 'CW':
-            GPIO.output(self.dir_pin, GPIO.HIGH)  # 時計回り
+            step_direction = 1  # 時計回り
         elif direction == 'CCW':
-            GPIO.output(self.dir_pin, GPIO.LOW)   # 反時計回り
+            step_direction = -1  # 反時計回り
         else:
             print("回転方向は 'CW' または 'CCW' を指定してください。")
             return
 
-        # モーターを回転させる
+        # 回転させるステップ数を計算（例: 1秒あたりのステップ数を仮定）
+        # 28BYJ-48のステップ数は約2048ステップ/回転
+        # 回転速度を決めるためにステップ数を調整
+        steps_per_second = 100  # 必要に応じて調整
+        total_steps = int(steps_per_second * duration)
+
         start_time = time.time()
-        while time.time() - start_time < duration:
-            GPIO.output(self.step_pin, GPIO.HIGH)
-            time.sleep(0.001)  # ステップ間の遅延 (調整可能)
-            GPIO.output(self.step_pin, GPIO.LOW)
-            time.sleep(0.001)
+        for _ in range(total_steps):
+            self.current_step = (self.current_step + step_direction) % self.step_count
+            self.__set_step(self.STEP_SEQUENCE[self.current_step])
+            time.sleep(delay)
+            # 実際の経過時間をチェックして終了
+            if time.time() - start_time >= duration:
+                break
+
+    def cleanup(self):
+        GPIO.cleanup()
