@@ -3,8 +3,6 @@ import keyboardlib
 import puppetlib
 
 
-
-
 def process_key(key: str):
     """
     キー押下時に実行する処理。
@@ -22,10 +20,10 @@ def process_key(key: str):
         puppetlib.right()
     elif key == 'q':
         print("左旋回")
-        puppetlib.cc()
+        puppetlib.ccw()
     elif key == 'e':
         print("右旋回")
-        puppetlib.ccw()
+        puppetlib.cw()
     else:
         print(f"未定義のキー '{key.upper()}' が押されました。")
 

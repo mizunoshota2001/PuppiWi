@@ -63,7 +63,7 @@ def head(moter: moterlib.Servo = MOTERS["head"]):
 
 
 @motor_control("leg")
-def cc(moter: moterlib.Stepper28BYJ = MOTERS["leg"]):
+def cw(moter: moterlib.Stepper28BYJ = MOTERS["leg"]):
     moter = MOTERS["leg"]
     moter.move('CW', 0.5)
 
