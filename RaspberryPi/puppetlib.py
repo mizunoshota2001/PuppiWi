@@ -52,12 +52,14 @@ def left(moter: moterlib.Servo = MOTERS["left"]):
 def right(moter: moterlib.Servo = MOTERS["right"]):
     moter = MOTERS["right"]
     moter.move(180, 0.5)
+    moter.move(0, 0.5)
 
 
 @motor_control("head")
 def head(moter: moterlib.Servo = MOTERS["head"]):
     moter = MOTERS["head"]
     moter.move(180, 0.5)
+    moter.move(0, 0.5)
 
 
 @motor_control("leg")
