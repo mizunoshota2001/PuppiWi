@@ -12,6 +12,7 @@ def process_key(key: str):
     if key == 'a':
         print("左手")
         puppetlib.left()
+        puppetlib.right()
     elif key == 's':
         print("下を向く")
         puppetlib.head()
