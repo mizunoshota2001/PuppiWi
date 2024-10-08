@@ -4,10 +4,10 @@ import moterlib  # モーター制御用のライブラリをインポート
 
 # モーターの初期化
 MOTERS = {
-    "left": moterlib.Servo("left", 21),
-    "right": moterlib.Servo("right", 20),
-    "head": moterlib.Servo("head", 16),
-    "leg": moterlib.Stepper28BYJ(6, 13, 19, 26),
+    "left": moterlib.Servo("left", 26),
+    "right": moterlib.Servo("right", 19),
+    "head": moterlib.Servo("head", 13),
+    "leg": moterlib.Servo("leg", 6),
 }
 
 # 各モーター用のロックオブジェクトを作成
@@ -65,10 +65,12 @@ def head(moter: moterlib.Servo = MOTERS["head"]):
 @motor_control("leg")
 def cw(moter: moterlib.Stepper28BYJ = MOTERS["leg"]):
     moter = MOTERS["leg"]
-    moter.move('CW', 0.5)
+    moter.move(180, 0.5)
+
 
 
 @motor_control("leg")
 def ccw(moter: moterlib.Stepper28BYJ = MOTERS["leg"]):
     moter = MOTERS["leg"]
-    moter.move('CCW', 0.5)
+    moter.move(0, 0.5)
+
