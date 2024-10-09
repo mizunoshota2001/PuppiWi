@@ -9,6 +9,7 @@ def process_key(key: str):
     各キーに応じた処理をここに実装します。
     この例では、キーごとに異なる処理をシミュレートしています。
     """
+    print("process_key")
     if key == 'a':
         print("左手")
         puppetlib.left()
@@ -30,6 +31,7 @@ def process_key(key: str):
 
 
 def listener():
+    print("listener")
     key = keyboardlib.listen()
     process_key(key)
     listener()
