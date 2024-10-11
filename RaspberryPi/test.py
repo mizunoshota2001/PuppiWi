@@ -1,15 +1,15 @@
 import threading
 import time
 import keyboardlib
-
+import puppetlib
 
 
 def gigpapet():
     time.sleep(2)
     print("右手")
-    #puppetlib.right()
+    puppetlib.right()
     print("左手")
-    #puppetlib.left()
+    puppetlib.left()
     gigpapet()
 
 def process_key(key: str):
@@ -21,13 +21,13 @@ def process_key(key: str):
     print("process_key")
     if key == 's':
         print("下を向く")
-        #puppetlib.head()
+        puppetlib.head()
     elif key == 'q':
         print("左旋回")
-        #puppetlib.ccw()
+        puppetlib.ccw()
     elif key == 'e':
         print("右旋回")
-        #puppetlib.cw()
+        puppetlib.cw()
     elif key=="p":
         gigpapet()
     else:
