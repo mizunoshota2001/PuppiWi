@@ -1,8 +1,16 @@
 import threading
-import keyboardlib
-
 import time
-import keyboard
+import keyboardlib
+import puppetlib
+
+
+def gigpapet():
+    time.sleep(2)
+    print("右手")
+    puppetlib.right()
+    print("左手")
+    puppetlib.left()
+    gigpapet()
 
 def process_key(key: str):
     """s
@@ -11,39 +19,19 @@ def process_key(key: str):
     この例では、キーごとに異なる処理をシミュレートしています。
     """
     print("process_key")
-    if key == 'a':
-        print("左手")
-        #puppetlib.left()
-    elif key == 's':
+    if key == 's':
         print("下を向く")
-        #puppetlib.head()
-    elif key == 'd':
-        print("右手")
-        #puppetlib.right()
+        puppetlib.head()
     elif key == 'q':
         print("左旋回")
-        #puppetlib.ccw()
+        puppetlib.ccw()
     elif key == 'e':
         print("右旋回")
-        #puppetlib.cw()
+        puppetlib.cw()
     elif key=="p":
         gigpapet()
     else:
         print(f"未定義のキー '{key.upper()}' が押されました。")
-
-
-def gigpapet():
-    if keyboard.is_pressed('o'):
-        listener()
-    else:
-        print("lis右")
-        #puppetlib.cw()
-        time.sleep(3)
-        print("lis左")
-        #puppetlib.ccw()
-    gigpapet()
-    
-
 
 
 def listener():
@@ -53,11 +41,9 @@ def listener():
     listener()
 
 
-
-def main():
-    gigpapet()
-
-
 if __name__ == "__main__":
-    main()
-
+    thread = threading.Thread(target=gigpapet, name='thread1',daemon=True)
+    thread.start()
+    listener()
+    thread.join()
+    print("---end---")
