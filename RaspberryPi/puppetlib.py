@@ -70,7 +70,7 @@ def head(moter: moterlib.Servo = MOTERS["head"]):
 @motor_control("leg")#右回転
 def cw(moter: moterlib.Servo = MOTERS["leg"]):
     global current_angles
-    current_angles["gangl_num"]+=10
+    current_angles["gangl_num"]+=90
     if current_angles["gangl_num"]>180:
         current_angles["gangl_num"]=180
     moter = MOTERS["leg"]
@@ -81,7 +81,7 @@ def cw(moter: moterlib.Servo = MOTERS["leg"]):
 @motor_control("leg")#左回転
 def ccw(moter: moterlib.Servo = MOTERS["leg"]):
     global current_angles
-    current_angles["gangl_num"]-=10
+    current_angles["gangl_num"]-=90
     if current_angles["gangl_num"]<0:
         current_angles["gangl_num"]=0
     moter = MOTERS["leg"]
