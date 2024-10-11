@@ -20,16 +20,18 @@ def process_key(key: str):
         puppetlib.ccw()
         time.sleep(1)
         puppetlib.cw()
+        time.sleep(1)
+        puppetlib.ccw
     elif key == 'd':
         print("肯定")
         puppetlib.head()
-        puppetlib.left()
-        puppetlib.right()
     elif key == 'q':
         print("待機1")
         puppetlib.ccw()
         time.sleep(1)
         puppetlib.cw()
+        time.sleep(1)
+        puppetlib.ccw()
     elif key == 'e':
         print("待機2")
         puppetlib.left()
