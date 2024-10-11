@@ -20,8 +20,7 @@ LOCKS = {
 }
 
 current_angles={
-    "left_num":0,
-    "right_num":0,
+    "gangl_num":90,
 }
 
 
@@ -69,22 +68,22 @@ def head(moter: moterlib.Servo = MOTERS["head"]):
 
 
 @motor_control("leg")#右回転
-def cw(moter: moterlib.Stepper28BYJ = MOTERS["leg"]):
+def cw(moter: moterlib.Servo = MOTERS["leg"]):
     global current_angles
-    current_angles["right_num"]+=10
-    if current_angles["right_num"]<180:
-        current_angles["right_num"]=180
+    current_angles["gangl_num"]+=10
+    if current_angles["gangl_num"]>180:
+        current_angles["gangl_num"]=180
     moter = MOTERS["leg"]
-    moter.move(current_angles["right_num"], 0.5)
+    moter.move(current_angles["gangl_num"], 0.5)
 
 
 
 @motor_control("leg")#左回転
-def ccw(moter: moterlib.Stepper28BYJ = MOTERS["leg"]):
+def ccw(moter: moterlib.Servo = MOTERS["leg"]):
     global current_angles
-    current_angles["left_num"]+=10
-    if current_angles["left_num"]<0:
-        current_angles["left_num"]=0
+    current_angles["gangl_num"]-=10
+    if current_angles["gangl_num"]<0:
+        current_angles["gangl_num"]=0
     moter = MOTERS["leg"]
-    moter.move(current_angles["left_num"], 0.5)
+    moter.move(current_angles["gangl_num"], 0.5)
 
