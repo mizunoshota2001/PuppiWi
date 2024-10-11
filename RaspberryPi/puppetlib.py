@@ -2,6 +2,7 @@ import threading
 import moterlib  # モーター制御用のライブラリをインポート
 
 
+
 # モーターの初期化
 MOTERS = {
     "left": moterlib.Servo("left", 26),
@@ -62,14 +63,14 @@ def head(moter: moterlib.Servo = MOTERS["head"]):
     moter.move(0, 0.5)
 
 
-@motor_control("leg")
+@motor_control("leg")#右回転
 def cw(moter: moterlib.Stepper28BYJ = MOTERS["leg"]):
     moter = MOTERS["leg"]
     moter.move(180, 0.5)
 
 
 
-@motor_control("leg")
+@motor_control("leg")#左回転
 def ccw(moter: moterlib.Stepper28BYJ = MOTERS["leg"]):
     moter = MOTERS["leg"]
     moter.move(0, 0.5)
