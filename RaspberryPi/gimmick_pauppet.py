@@ -26,6 +26,8 @@ def process_key(key: str):
     if key == 's':
         print("下を向く")
         puppetlib.head()
+        puppetlib.left()
+        puppetlib.right()
     elif key == 'q':
         print("左旋回")
         puppetlib.cw()
