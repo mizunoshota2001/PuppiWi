@@ -1,7 +1,7 @@
+import keyboardlib
 import threading
 import time
 import os
-import keyboard  # keyboardlib を keyboard に変更
 import puppetlib
 
 stop_body = True
@@ -42,6 +42,7 @@ def gig_body():
                 puppetlib.ccw()
         except Exception as e:
             print(e)
+            print("終了する際にはターミナルを閉じてください。")
 
 
 def gig_hands():
@@ -55,11 +56,11 @@ def gig_hands():
                 puppetlib.right()
         except Exception as e:
             print(e)
+            print("終了する際にはターミナルを閉じてください。")
 
 
-def process_key(e):
+def process_key(key):
     try:
-        key = e.name
         global stop_body
         global stop_hands
         """
@@ -90,6 +91,17 @@ def process_key(e):
             print(f"未定義のキー '{key.upper()}' が押されました。")
     except Exception as e:
         print(e)
+        print("終了する際にはターミナルを閉じてください。")
+
+
+def listener():
+    while True:
+        try:
+            key = keyboardlib.listen()
+            process_key(key)
+        except Exception as e:
+            print(e)
+            print("終了する際にはターミナルを閉じてください。")
 
 
 if __name__ == "__main__":
@@ -103,4 +115,4 @@ if __name__ == "__main__":
     thread1.start()
     thread2.start()
 
-    keyboard.on_press(process_key)
+    listener()
