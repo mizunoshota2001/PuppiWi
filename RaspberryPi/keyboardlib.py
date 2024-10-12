@@ -11,7 +11,6 @@ def key_listener_windows():
     key = msvcrt.getch()
     return key.decode('utf-8').lower()
 
-
 def key_listener_unix():
     import tty
     import select
@@ -22,7 +21,6 @@ def key_listener_unix():
         if dr:
             return sys.stdin.read(1).lower()
         time.sleep(0)
-
 
 def listen():
     if sys.platform.startswith('win'):
