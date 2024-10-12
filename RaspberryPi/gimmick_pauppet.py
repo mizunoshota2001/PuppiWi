@@ -28,10 +28,10 @@ def process_key(key: str):
         puppetlib.head()
     elif key == 'q':
         print("左旋回")
-        puppetlib.ccw()
+        puppetlib.cw()
     elif key == 'e':
         print("右旋回")
-        puppetlib.cw()
+        puppetlib.ccw()
     elif key == "x":
         stop = not stop
     else:
