@@ -53,10 +53,10 @@ def process_key(key: str):
         print("右旋回")
         puppetlib.ccw()
     elif key == "x":
-        print("[%s]体"% "停止" if stop_body else "再開")
+        print("[%s]体" % ("停止" if stop_body else "再開"))
         stop_body = not stop_body
     elif key == "z":
-        print("[%s]手と頭"% "停止" if stop_hands else "再開")
+        print("[%s]手と頭" % ("停止" if stop_hands else "再開"))
         stop_hands = not stop_hands
     else:
         print(f"未定義のキー '{key.upper()}' が押されました。")
