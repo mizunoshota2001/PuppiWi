@@ -74,7 +74,7 @@ def cw(moter: moterlib.Servo = MOTERS["leg"]):
     if current_angles["gangl_num"]>180:
         current_angles["gangl_num"]=180
     moter = MOTERS["leg"]
-    moter.move(current_angles["gangl_num"], 0.5)
+    moter.move(current_angles["gangl_num"], 0.25)
 
 
 
@@ -85,5 +85,5 @@ def ccw(moter: moterlib.Servo = MOTERS["leg"]):
     if current_angles["gangl_num"]<0:
         current_angles["gangl_num"]=0
     moter = MOTERS["leg"]
-    moter.move(current_angles["gangl_num"], 0.5)
+    moter.move(current_angles["gangl_num"], 0.25)
 

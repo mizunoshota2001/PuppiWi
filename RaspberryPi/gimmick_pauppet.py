@@ -3,16 +3,20 @@ import time
 import keyboardlib
 import puppetlib
 
+stop = True
+
 
 def gigpapet():
-    time.sleep(2)
-    print("右手")
-    puppetlib.right()
-    print("左手")
-    puppetlib.left()
+    time.sleep(0.5)
+    if not stop:
+        puppetlib.cw()
+        time.sleep(0.5)
+        puppetlib.ccw()
     gigpapet()
 
+
 def process_key(key: str):
+    global stop
     """s
     キー押下時に実行する処理。
     各キーに応じた処理をここに実装します。
@@ -28,8 +32,8 @@ def process_key(key: str):
     elif key == 'e':
         print("右旋回")
         puppetlib.cw()
-    elif key=="p":
-        gigpapet()
+    elif key == "x":
+        stop = not stop
     else:
         print(f"未定義のキー '{key.upper()}' が押されました。")
 
@@ -42,7 +46,7 @@ def listener():
 
 
 if __name__ == "__main__":
-    thread = threading.Thread(target=gigpapet, name='thread1',daemon=True)
+    thread = threading.Thread(target=gigpapet, name='thread1', daemon=True)
     thread.start()
     listener()
     thread.join()
