@@ -12,16 +12,16 @@ clone
 cd && git clone https://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@github.com/mizunoshota2001/remote-puppet.git tmp && mkdir -p remote-puppet && cp -a tmp/RaspberryPi/* remote-puppet && rm -rf tmp
 
 ```
-###pythonライブラリ
+### pythonライブラリ
 以下のpythonライブラリを使用しています
--keyboard - キーボード入力を扱うためのライブラリ
+- keyboard - キーボード入力を扱うためのライブラリ
 
 PyPlのインストール
 ```bash
 pip install keyboard
 ```
 
-ラズパイ5用のセットアップ
+# ラズパイ5用のセットアップ
 ```bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y git python3-pip
@@ -32,5 +32,11 @@ git clone https://github_pat_11AWX2Z3Y0Ni9gms7EUK3o_Vn9HBBGAK2rr7tfafUdidcvOJ7Zo
 mkdir -p remote-puppet
 cp -a tmp/RaspberryPi/* remote-puppet
 rm -rf tmp
+
+```
+
+## 一行にまとめたやつ
+```bash
+sudo apt update && sudo apt upgrade -y && sudo apt install -y git python3-pip && sudo apt remove python3-rpi.gpio -y && sudo pip3 install --upgrade pip --break-system-packages && sudo pip3 install keyboard --break-system-packages && sudo pip3 install rpi-lgpio --break-system-packages && cd ~ && git clone https://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@github.com/mizunoshota2001/remote-puppet.git tmp && mkdir -p remote-puppet && cp -a tmp/RaspberryPi/* remote-puppet && rm -rf tmp
 
 ```
