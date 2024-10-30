@@ -9,7 +9,7 @@ void setup()
 void loop()
 {
   myServo.write(0);
-  delay(5000);
+  delay(3000);
   myServo.write(180);
-  delay(5000);
+  delay(3000);
 }
