@@ -49,8 +49,8 @@ def motor_control(motor_key):
 
 @motor_control("left")
 def left(moter: moterlib.Servo = MOTERS["left"]):
-    moter.move(180, 0.5)
     moter.move(0, 0.5)
+    moter.move(180, 0.5)
 
 
 @motor_control("right")
