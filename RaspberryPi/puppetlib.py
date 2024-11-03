@@ -5,10 +5,10 @@ import moterlib  # モーター制御用のライブラリをインポート
 
 # モーターの初期化
 MOTERS = {
-    "left": moterlib.Servo("left", 21),
-    "right": moterlib.Servo("right", 16),
-    "head": moterlib.Servo("head", 1),
-    "leg": moterlib.Servo("leg", 25),
+    "left": moterlib.Servo("left", 26),
+    "right": moterlib.Servo("right", 19),
+    "head": moterlib.Servo("head", 6),
+    "leg": moterlib.Servo("leg", 5),
 }
 
 # 各モーター用のロックオブジェクトを作成
