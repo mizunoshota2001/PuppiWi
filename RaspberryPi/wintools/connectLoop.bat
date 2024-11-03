@@ -1,6 +1,6 @@
 @echo off
 setlocal 
-call config.bat
+cd %~dp0 && call config.bat
 
 :loop
 if "%SSH_KEY_PATH%"=="" (
