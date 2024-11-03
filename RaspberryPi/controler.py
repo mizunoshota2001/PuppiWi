@@ -1,6 +1,4 @@
 import keyboardlib
-import threading
-import time
 import os
 import puppetlib
 
@@ -12,11 +10,11 @@ instructions = """
 終了する際にはターミナルを閉じる
 エラーが出た際には再実行( python main.py )
 +-----+-----+-----+
-|  a  |  s  |  d  |
-|  左 | 手頭|  右 |
+|  q  |     |  e  |
+| 左回|     | 右回|
 +-----+-----+-----+
-|  z  |  x  |←自動|
-| 手頭|  体 |←切替|
+|  a  |  s  |  d  | 
+| 左手| 頭  | 右手|
 +-----+-----+-----+
 """
 
@@ -32,38 +30,8 @@ def print_instructions():
     print(instructions)
 
 
-def gig_body():
-    global stop_body
-    while True:
-        try:
-            time.sleep(0.5)
-            if not stop_body:
-                puppetlib.cw()
-                time.sleep(0.5)
-                puppetlib.ccw()
-        except Exception as e:
-            print(e)
-            print("終了する際にはターミナルを閉じてください。")
-
-
-def gig_hands():
-    global stop_hands
-    while True:
-        try:
-            time.sleep(0.5)
-            if not stop_hands:
-                puppetlib.head()
-                puppetlib.left()
-                puppetlib.right()
-        except Exception as e:
-            print(e)
-            print("終了する際にはターミナルを閉じてください。")
-
-
 def process_key(key):
     try:
-        global stop_body
-        global stop_hands
         """
         キー押下時に実行する処理。
         各キーに応じた処理をここに実装します。
@@ -72,22 +40,20 @@ def process_key(key):
         print_instructions()
 
         if key == 's':
-            print(f"{key.upper()}: 手と頭")
+            print(f"{key.upper()}: 頭")
             puppetlib.head()
-            puppetlib.left()
-            puppetlib.right()
         elif key == 'a':
+            print(f"{key.upper()}: 左手")
+            puppetlib.left()
+        elif key == 'd':
+            print(f"{key.upper()}: 右手")
+            puppetlib.right()
+        elif key == "q":
             print(f"{key.upper()}: 左旋回")
             puppetlib.cw()
-        elif key == 'd':
+        elif key == "e":
             print(f"{key.upper()}: 右旋回")
             puppetlib.ccw()
-        elif key == "x":
-            stop_body = not stop_body
-            print(f"{key.upper()}: 体の動作[{'停止' if stop_body else '再開'}]")
-        elif key == "z":
-            stop_hands = not stop_hands
-            print(f"{key.upper()}: 手と頭[{'停止' if stop_hands else '再開'}]")
         else:
             print(f"未定義のキー '{key.upper()}' が押されました。")
     except Exception as e:
@@ -107,13 +73,4 @@ def listener():
 
 if __name__ == "__main__":
     print_instructions()  # プログラム開始時に操作説明を表示
-
-    # スレッドの設定
-    thread1 = threading.Thread(target=gig_body, name='thread1', daemon=True)
-    thread2 = threading.Thread(target=gig_hands, name='thread2', daemon=True)
-
-    # スレッドの開始
-    thread1.start()
-    thread2.start()
-
     listener()
