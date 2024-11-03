@@ -7,8 +7,8 @@ import moterlib  # モーター制御用のライブラリをインポート
 MOTERS = {
     "left": moterlib.Servo("left", 26),
     "right": moterlib.Servo("right", 19),
-    "head": moterlib.Servo("head", 6),
-    "leg": moterlib.Servo("leg", 5),
+    "head": moterlib.Servo("head", 13),
+    "leg": moterlib.Servo("leg", 6),
 }
 
 # 各モーター用のロックオブジェクトを作成
