@@ -3,7 +3,7 @@ raspi zero w
 legacy lite OS
 
 ```bash
-sudo apt install -y git python3-pip python3-venv
+sudo apt install -y git python3-pip python3-venv && sudo pip install flask
 ```
 
 clone

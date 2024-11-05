@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>モータ制御</title>
+    <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.7.3/dist/nipplejs.min.js"></script>
+    <style>
+        #joystick-container {
+            position: fixed;
+            bottom: 50px;
+            left: 50px;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ロボットコントローラー</h1>
+    <div id="joystick-container"></div>
+    <button id="moveLeft">左へ移動</button>
+    <button id="moveRight">右へ移動</button>
+    <button id="moveHead">頭を動かす</button>
+    <button id="resetLeg">脚をリセット</button>
+
+    <script>
+        const joystick = nipplejs.create({
+            zone: document.getElementById('joystick-container'),
+            mode: 'static',
+            position: { left: '100px', top: '100px' },
+            color: 'blue'
+        });
+
+        joystick.on('move', function(evt, data) {
+            const angle = data.angle.degree; // 0〜360度の角度を取得
+            const force = data.force;
+
+            fetch('/move_leg', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    angle: angle,
+                    force: force
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+
+        joystick.on('end', function() {
+            fetch('/move_leg', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    angle: null, // 角度をリセット
+                    force: 0
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Leg reset:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+
+        document.getElementById('moveLeft').addEventListener('click', () => {
+            fetch('/move_other', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ direction: 'left' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Move Left:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        document.getElementById('moveRight').addEventListener('click', () => {
+            fetch('/move_other', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ direction: 'right' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Move Right:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        document.getElementById('moveHead').addEventListener('click', () => {
+            fetch('/move_other', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ direction: 'head' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Move Head:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        document.getElementById('resetLeg').addEventListener('click', () => {
+            fetch('/move_leg', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ angle: null, force: 0 })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Leg reset:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
