@@ -12,15 +12,56 @@
             width: 200px;
             height: 200px;
         }
+        .controller-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #333;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px #999;
+            width: 80px;
+            height: 80px;
+            text-align: center;
+            line-height: 40px;
+        }
+        .controller-button:active {
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+        .controller-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: url('path/to/controller-background.png') no-repeat center;
+            width: 400px;
+            height: 200px;
+            padding: 20px;
+            border-radius: 20px;
+        }
+        .controller-buttons {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
     <h1>ロボットコントローラー</h1>
     <div id="joystick-container"></div>
-    <button id="moveLeft">左へ移動</button>
-    <button id="moveRight">右へ移動</button>
-    <button id="moveHead">頭を動かす</button>
-    <button id="resetLeg">脚をリセット</button>
+    <div class="controller-container">
+        <div class="controller-buttons">
+            <button id="moveLeft" class="controller-button">左手</button>
+            <button id="moveRight" class="controller-button">右手</button>
+            <button id="moveHead" class="controller-button">頭</button>
+            <button id="resetLeg" class="controller-button">正面</button>
+        </div>
+    </div>
 
     <script>
         const joystick = nipplejs.create({
