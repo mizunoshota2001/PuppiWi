@@ -53,16 +53,16 @@ def move_other():
     data = request.get_json()
     direction = data.get('direction')
     if direction == 'left':
-        motors['left_motor'].ChangeDutyCycle(12)   # 左モーター180度, dutyサイクルの最大値
+        motors['left_motor'].ChangeDutyCycle(2)   # 左モーター180度, dutyサイクルの最大値
         time.sleep(WAIT_TIME)  # 数秒待機
-        motors['left_motor'].ChangeDutyCycle(2)      # dutyサイクルを0に設定
+        motors['left_motor'].ChangeDutyCycle(12)      # dutyサイクルを0に設定
         time.sleep(WAIT_TIME)  # 数秒待機
         motors['left_motor'].ChangeDutyCycle(0)      # dutyサイクルを0に設定
 
     elif direction == 'right':
-        motors['right_motor'].ChangeDutyCycle(2)      # 右モーター0度, dutyサイクルの最小値
+        motors['right_motor'].ChangeDutyCycle(12)      # 右モーター0度, dutyサイクルの最小値
         time.sleep(WAIT_TIME)  # 数秒待機
-        motors['right_motor'].ChangeDutyCycle(12)      # dutyサイクルを0に設定
+        motors['right_motor'].ChangeDutyCycle(2)      # dutyサイクルを0に設定
         time.sleep(WAIT_TIME)  # 数秒待機
         motors['right_motor'].ChangeDutyCycle(0)      # dutyサイクルを0に設定
 
