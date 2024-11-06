@@ -1,186 +1,127 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>モータ制御</title>
     <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.7.3/dist/nipplejs.min.js"></script>
     <style>
-        #joystick-container {
-            position: fixed;
-            bottom: 50px;
-            left: 50px;
-            width: 200px;
-            height: 200px;
-        }
-        .controller-button {
-            display: inline-block;
-            margin: 10px;
-            padding: 20px;
-            font-size: 16px;
-            color: white;
-            background-color: #333;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 4px #999;
-            width: 80px;
-            height: 80px;
-            text-align: center;
-            line-height: 40px;
-        }
-        .controller-button:active {
-            box-shadow: 0 2px #666;
-            transform: translateY(2px);
-        }
-        .controller-container {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: url('path/to/controller-background.png') no-repeat center;
-            width: 400px;
-            height: 200px;
-            padding: 20px;
-            border-radius: 20px;
-        }
-        .controller-buttons {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: 100%;
-        }
+      #joystick-container {
+        position: fixed;
+        bottom: 50px;
+        left: 50px;
+        width: 200px;
+        height: 200px;
+      }
+      .controller-button {
+        display: inline-block;
+        margin: 10px;
+        padding: 20px;
+        font-size: 16px;
+        color: white;
+        background-color: #333;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 4px #999;
+        width: 80px;
+        height: 80px;
+        text-align: center;
+        line-height: 40px;
+      }
+      .controller-button:active {
+        box-shadow: 0 2px #666;
+        transform: translateY(2px);
+      }
+      .controller-container {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: url("path/to/controller-background.png") no-repeat center;
+        width: 400px;
+        height: 200px;
+        padding: 20px;
+        border-radius: 20px;
+      }
+      .controller-buttons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>ロボットコントローラー</h1>
     <div id="joystick-container"></div>
     <div class="controller-container">
-        <div class="controller-buttons">
-            <button id="moveLeft" class="controller-button">左手</button>
-            <button id="moveRight" class="controller-button">右手</button>
-            <button id="moveHead" class="controller-button">頭</button>
-            <button id="resetLeg" class="controller-button">正面</button>
-        </div>
+      <div class="controller-buttons">
+        <button id="moveLeft" class="controller-button">左手</button>
+        <button id="moveRight" class="controller-button">右手</button>
+        <button id="moveHead" class="controller-button">頭</button>
+      </div>
     </div>
 
     <script>
-        const joystick = nipplejs.create({
-            zone: document.getElementById('joystick-container'),
-            mode: 'static',
-            position: { left: '100px', top: '100px' },
-            color: 'blue'
-        });
+      const joystick = nipplejs.create({
+        zone: document.getElementById("joystick-container"),
+        mode: "static",
+        position: { left: "100px", top: "100px" },
+        color: "blue",
+      });
 
-        joystick.on('move', function(evt, data) {
-            const angle = data.angle.degree; // 0〜360度の角度を取得
-            const force = data.force;
-
-            fetch('/move_leg', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    angle: angle,
-                    force: force
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+      function post(endpoint, data) {
+        return fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         });
+      }
 
-        joystick.on('end', function() {
-            fetch('/move_leg', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    angle: null, // 角度をリセット
-                    force: 0
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Leg reset:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        });
+      joystick.on("move", function (evt, data) {
+        const angle = data.angle.degree; // 0〜360度の角度を取得
+        const force = data.force;
+        post("/leg", { angle: angle, force: force });
+      });
 
-        document.getElementById('moveLeft').addEventListener('click', () => {
-            fetch('/move_other', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ direction: 'left' })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Move Left:', data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
+      joystick.on("end", function () {
+        post("/leg", { angle: null, force: 0 });
+      });
 
-        document.getElementById('moveRight').addEventListener('click', () => {
-            fetch('/move_other', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ direction: 'right' })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Move Right:', data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
+      document.getElementById("moveLeft").addEventListener("click", () => {
+        post("/left", { direction: "left" })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Move Left:", data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      });
 
-        document.getElementById('moveHead').addEventListener('click', () => {
-            fetch('/move_other', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ direction: 'head' })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Move Head:', data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
+      document.getElementById("moveRight").addEventListener("click", () => {
+        post("/right", { direction: "right" })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Move Right:", data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      });
 
-        document.getElementById('resetLeg').addEventListener('click', () => {
-            fetch('/move_leg', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ angle: null, force: 0 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Leg reset:', data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
+      document.getElementById("moveHead").addEventListener("click", () => {
+        post("/head", { direction: "head" })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Move Head:", data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      });
     </script>
-</body>
+  </body>
 </html>

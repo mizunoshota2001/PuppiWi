@@ -9,26 +9,28 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/move_leg', methods=['POST'])
-def move_leg():
+@app.route('/leg', methods=['POST'])
+def leg():
     data = request.get_json()
     angle = data.get('angle')
     if angle is not None:
-        behavior.move_leg(angle)
+        behavior.leg(angle)
     return jsonify(status='OK')
 
 
-@app.route('/move_other', methods=['POST'])
-def move_other():
-    data = request.get_json()
-    direction = data.get('direction')
-    if direction is not None:
-        if direction == 'left':
-            behavior.left()
-        elif direction == 'right':
-            behavior.right()
-        elif direction == 'head':
-            behavior.head()
+@app.route('/left', methods=['POST'])
+def left():
+    behavior.left()
+    return jsonify(status='OK')
+
+@app.route('/right', methods=['POST'])
+def right():
+    behavior.right()
+    return jsonify(status='OK')
+
+@app.route('/head', methods=['POST'])
+def head():
+    behavior.head()
     return jsonify(status='OK')
 
 
