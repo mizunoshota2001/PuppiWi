@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 import RPi.GPIO as GPIO
-import behavior 
+import behavior
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def index():
@@ -11,10 +12,9 @@ def index():
 
 @app.route('/leg', methods=['POST'])
 def leg():
-    data = request.get_json()
+    data: dict = request.get_json()
     angle = data.get('angle')
-    if angle is not None:
-        behavior.leg(angle)
+    behavior.leg(angle)
     return jsonify(status='OK')
 
 
@@ -23,10 +23,12 @@ def left():
     behavior.left()
     return jsonify(status='OK')
 
+
 @app.route('/right', methods=['POST'])
 def right():
     behavior.right()
     return jsonify(status='OK')
+
 
 @app.route('/head', methods=['POST'])
 def head():

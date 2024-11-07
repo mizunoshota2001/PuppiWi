@@ -81,9 +81,9 @@
       }
 
       joystick.on("move", function (evt, data) {
-        const angle = data.angle.degree; // 0〜360度の角度を取得
-        const force = data.force;
-        post("/leg", { angle: angle, force: force });
+        const angle = data.angle.degree;
+        const res = post("/leg", { angle: angle });
+        
       });
 
       joystick.on("end", function () {
@@ -91,36 +91,15 @@
       });
 
       document.getElementById("moveLeft").addEventListener("click", () => {
-        post("/left", { direction: "left" })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Move Left:", data);
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
+        post("/left", { direction: "left" });
       });
 
       document.getElementById("moveRight").addEventListener("click", () => {
-        post("/right", { direction: "right" })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Move Right:", data);
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
+        post("/right", { direction: "right" });
       });
 
       document.getElementById("moveHead").addEventListener("click", () => {
-        post("/head", { direction: "head" })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Move Head:", data);
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
+        post("/head", { direction: "head" });
       });
     </script>
   </body>
