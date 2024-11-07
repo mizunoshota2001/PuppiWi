@@ -15,6 +15,15 @@ def cdc(servo: GPIO.PWM, dutycycle: float):
     servo.ChangeDutyCycle(dutycycle)
 
 
+def toggle(servo_name: str, servo: GPIO.PWM, wait=WAIT_TIME):
+    config = servo_config[servo_name]
+    cdc(servo, config['duty_to'])
+    time.sleep(wait)
+    cdc(servo, config['duty_from'])
+    time.sleep(wait)
+    cdc(servo, 0)
+
+
 def leg(angle, servo=servos.get("left"), wait=WAIT_TIME):
     duty = 12 - (angle / 18 + 2)
     cdc(servo, duty)
@@ -22,21 +31,13 @@ def leg(angle, servo=servos.get("left"), wait=WAIT_TIME):
     cdc(servo, 0)
 
 
-def toggle(from_duty, to_duty, servo: GPIO.PWM, wait=WAIT_TIME):
-    cdc(servo, to_duty)
-    time.sleep(wait)
-    cdc(servo, from_duty)
-    time.sleep(wait)
-    cdc(servo, 0)
-
-
 def left(servo=servos.get("left")):
-    toggle(2, 12, servo)
+    toggle("left", servo)
 
 
 def right(servo=servos.get("right")):
-    toggle(12, 2, servo)
+    toggle("right", servo)
 
 
 def head(servo=servos.get("head")):
-    toggle(12, 2, servo)
+    toggle("head", servo)

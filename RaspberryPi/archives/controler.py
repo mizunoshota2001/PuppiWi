@@ -1,6 +1,6 @@
-import keyboardlib
+import archives.keyboardlib as keyboardlib
 import os
-import puppetlib
+import archives.puppetlib as puppetlib
 
 stop_body = True
 stop_hands = True

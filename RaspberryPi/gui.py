@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 import RPi.GPIO as GPIO
 import behavior
 
@@ -34,6 +34,11 @@ def right():
 def head():
     behavior.head()
     return jsonify(status='OK')
+
+
+@app.route('/_next/<path:filename>')
+def _next_static(filename):
+    return send_from_directory('./templates/_next', filename)
 
 
 if __name__ == '__main__':

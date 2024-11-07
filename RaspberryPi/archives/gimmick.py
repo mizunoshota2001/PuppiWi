@@ -1,7 +1,7 @@
 import threading
 import time
-import keyboardlib
-import puppetlib
+import archives.keyboardlib as keyboardlib
+import archives.puppetlib as puppetlib
 
 stop = True
 

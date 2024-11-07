@@ -1,8 +1,8 @@
-import keyboardlib
+import archives.keyboardlib as keyboardlib
 import threading
 import time
 import os
-import puppetlib
+import archives.puppetlib as puppetlib
 
 stop_body = True
 stop_hands = True

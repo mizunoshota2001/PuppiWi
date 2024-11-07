@@ -1,5 +1,5 @@
 import threading
-import moterlib  # モーター制御用のライブラリをインポート
+import archives.moterlib as moterlib  # モーター制御用のライブラリをインポート
 
 
 
