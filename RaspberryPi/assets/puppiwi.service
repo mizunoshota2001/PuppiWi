@@ -3,7 +3,7 @@ Description=puppiwi
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 /home/puppiwi/app/gui.py
+ExecStart=/home/puppiwi/app/.venv/bin/python /home/puppiwi/app/gui.py
 WorkingDirectory=/home/puppiwi/app/
 Restart=always
 User=puppiwi

@@ -5,7 +5,7 @@ from typing import Dict
 servos: Dict[str, GPIO.PWM] = {}
 
 GPIO.setmode(GPIO.BCM)
-(GPIO.setup(servo['pin'], GPIO.OUT) for servo in servo_config.values())
+[GPIO.setup(servo['pin'], GPIO.OUT) for servo in servo_config.values()]
 for name, config in servo_config.items():
     servos[name] = GPIO.PWM(config['pin'], config['frequency'])
     servos[name].start(config['initial_duty'])
