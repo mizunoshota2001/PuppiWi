@@ -24,8 +24,8 @@ def toggle(servo_name: str, servo: GPIO.PWM, wait=WAIT_TIME):
     cdc(servo, 0)
 
 
-def leg(angle, servo=servos.get("left"), wait=WAIT_TIME):
-    duty = 12 - (angle / 18 + 2)
+def leg(angle, servo=servos.get("leg"), wait=WAIT_TIME):
+    duty = 12 - (abs(float(angle)) / 18 + 2)
     cdc(servo, duty)
     time.sleep(wait)
     cdc(servo, 0)
