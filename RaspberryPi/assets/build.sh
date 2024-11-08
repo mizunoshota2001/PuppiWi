@@ -10,7 +10,7 @@ python3 -m venv .venv
 sudo touch /etc/systemd/system/puppiwi.service
 sudo cp -a  assets/puppiwi.service /etc/systemd/system/puppiwi.service
 sudo systemctl daemon-reload
-sudo systemctl enable startup.service
+sudo systemctl enable puppiwi.service
 
 cd /home/puppiwi
 git clone https://github.com/mizunoshota2001/PuppiWi.git tmp
