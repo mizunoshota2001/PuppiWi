@@ -1,3 +1,4 @@
+from threading import Thread
 from flask import Flask, render_template, request, jsonify, send_from_directory
 import RPi.GPIO as GPIO
 import behavior
@@ -36,6 +37,12 @@ def head():
     return jsonify(status='OK')
 
 
+@app.route('/jiggly', methods=['POST', 'GET'])
+def jiggly():
+    behavior.JIGGLY_FLAG.value = not behavior.JIGGLY_FLAG.value
+    return jsonify(status='OK')
+
+
 @app.route('/_next/<path:filename>')
 def _next_static(filename):
     return send_from_directory('./templates/_next', filename)
@@ -43,6 +50,7 @@ def _next_static(filename):
 
 if __name__ == '__main__':
     try:
+        Thread(target=behavior.jiggly).start()
         app.run(host='0.0.0.0', port=5000)
     finally:
         GPIO.cleanup()
