@@ -25,7 +25,7 @@ def toggle(servo_name: str, servo: GPIO.PWM, wait=WAIT_TIME):
     cdc(servo, 0)
 
 
-LEG_DUTY = Value('f', 0)
+LEG_DUTY = Value('f', 7.5)
 
 
 def leg(angle, servo=servos.get("leg"), wait=WAIT_TIME):
@@ -52,7 +52,7 @@ def head(servo=servos.get("head")):
 JIGGLY_FLAG = Value('b', False)
 
 
-def jiggly(servo=servos.get("leg"), wait=WAIT_TIME/2):
+def jiggly(servo=servos.get("leg"), wait=WAIT_TIME):
     global JIGGLY_FLAG, LEG_DUTY
     while 1:
         time.sleep(wait)
