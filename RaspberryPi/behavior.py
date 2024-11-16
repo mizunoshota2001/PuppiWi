@@ -28,8 +28,21 @@ def toggle(servo_name: str, servo: GPIO.PWM, wait=WAIT_TIME):
 LEG_DUTY = Value('f', 7.5)
 
 
+def _duty(angle, original_min=0, original_max=180, target_min=2, target_max=12.5, invert=True):
+    angle = abs(angle)
+    if angle < original_min:
+        angle = original_min
+    elif angle > original_max:
+        angle = original_max
+    if invert:
+        angle = original_max - angle
+    duty = target_min + (angle - original_min) * \
+        (target_max - target_min) / (original_max - original_min)
+    return duty
+
+
 def leg(angle, servo=servos.get("leg"), wait=WAIT_TIME):
-    duty = 12 - (abs(float(angle)) / 18 + 2)
+    duty = _duty(angle)
     global LEG_DUTY
     LEG_DUTY.value = duty
     cdc(servo, duty)
@@ -56,7 +69,7 @@ def jiggly(servo=servos.get("leg"), wait=WAIT_TIME):
     global JIGGLY_FLAG, LEG_DUTY
     while 1:
         time.sleep(wait)
-        print(JIGGLY_FLAG.value)
+        # print(LEG_DUTY.value)
         if not JIGGLY_FLAG.value:
             continue
         cdc(servo, LEG_DUTY.value+0.5)

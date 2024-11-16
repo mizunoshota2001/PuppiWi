@@ -19,6 +19,9 @@ function right() {
 function head() {
   post("/head", { direction: "head" });
 }
+function jiggly() {
+  post("/jiggly", { direction: "jiggly" });
+}
 
 let isLock = false;
 async function leg(event: IJoystickUpdateEvent) {
@@ -67,7 +70,7 @@ export default function Page() {
                   H
                 </button>
                 <button
-                  onClick={head}
+                  onClick={jiggly}
                   className="m-1 bg-yellow-500 w-20 h-20 text-2xl rounded-full text-gray-300 shadow-lg shadow-gray-400"
                 >
                   N
