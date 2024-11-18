@@ -13,7 +13,7 @@
     
     Raw URL を取得して、以下のコマンドを実行します:
     ```bash
-    wget {RawURL} -O build.sh
+    wget https://raw.githubusercontent.com/mizunoshota2001/PuppiWi/refs/heads/main/RaspberryPi/assets/build.sh
     ```
 
 2. スクリプトを実行します:
