@@ -5,7 +5,7 @@ mkdir app
 
 cd /home/puppiwi/app
 python3 -m venv .venv
-.venv/bin/python -m pip install flask rpi-lgpio
+.venv/bin/python -m pip install flask gpiozero
 
 sudo touch /etc/systemd/system/puppiwi.service
 sudo cp -a  assets/puppiwi.service /etc/systemd/system/puppiwi.service
