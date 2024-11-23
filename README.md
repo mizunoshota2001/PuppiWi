@@ -19,11 +19,11 @@
 2. スクリプトを実行します:
     以下のコマンドを実行します:
     ```bash
-    bash build.sh
+    sudo bash build.sh
     ```
 
 3. まとめたもの
     ```bash
     wget https://raw.githubusercontent.com/mizunoshota2001/PuppiWi/refs/heads/main/RaspberryPi/assets/build.sh
-    bash build.sh
+    sudo bash build.sh
     ```
