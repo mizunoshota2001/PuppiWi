@@ -3,10 +3,10 @@ Description=puppiwi
 After=network.target
 
 [Service]
-ExecStart=/home/puppiwi/app/.venv/bin/python /home/puppiwi/app/gui.py
+ExecStart=sudo /home/puppiwi/app/.venv/bin/python /home/puppiwi/app/gui.py
 WorkingDirectory=/home/puppiwi/app/
 Restart=always
-User=puppiwi
+User=root
 
 [Install]
 WantedBy=multi-user.target
