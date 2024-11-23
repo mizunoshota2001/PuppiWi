@@ -1,6 +1,7 @@
 from threading import Thread
 from flask import Flask, render_template, request, jsonify, send_from_directory
-import behavior_zero as behavior
+import RPi.GPIO as GPIO
+import behavior
 
 app = Flask(__name__)
 
@@ -48,5 +49,8 @@ def _next_static(filename):
 
 
 if __name__ == '__main__':
-    Thread(target=behavior.jiggly).start()
-    app.run(host='0.0.0.0', port=5000)
+    try:
+        Thread(target=behavior.jiggly).start()
+        app.run(host='0.0.0.0', port=5000)
+    finally:
+        GPIO.cleanup()
