@@ -3,7 +3,7 @@ Description=puppiwi
 After=network.target
 
 [Service]
-ExecStart=bash /home/puppiwi/app/assets/virtualCameraSetup.sh
+ExecStart=bash /home/puppiwi/app/assets/virtualCamera.sh
 WorkingDirectory=/home/puppiwi/app/
 Restart=always
 User=puppiwi
