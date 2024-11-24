@@ -1,7 +1,7 @@
 from threading import Thread
 from flask import Flask, render_template, request, jsonify, send_from_directory
 import RPi.GPIO as GPIO
-import behavior_zero as behavior
+import behavior
 
 app = Flask(__name__)
 
