@@ -25,5 +25,5 @@
 
 3. まとめたもの
    ```bash
-   wget -O - https://raw.githubusercontent.com/mizunoshota2001/PuppiWi/refs/heads/pi5/RaspberryPi/assets/build.sh | bash
+   sudo wget -O - https://raw.githubusercontent.com/mizunoshota2001/PuppiWi/refs/heads/pi5/RaspberryPi/assets/build.sh | bash
    ```
