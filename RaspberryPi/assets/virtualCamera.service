@@ -1,0 +1,12 @@
+[Unit]
+Description=puppiwi
+After=network.target
+
+[Service]
+ExecStart=bash /home/puppiwi/app/assets/virtualCameraSetup.sh
+WorkingDirectory=/home/puppiwi/app/
+Restart=always
+User=puppiwi
+
+[Install]
+WantedBy=multi-user.target

@@ -18,3 +18,10 @@ sudo cp -a assets/puppiwi.service /etc/systemd/system/puppiwi.service
 sudo systemctl daemon-reload
 sudo systemctl unmask puppiwi.service
 sudo systemctl enable puppiwi.service
+
+cd /home/puppiwi/app
+sudo touch /etc/systemd/system/virtualCamera.service
+sudo cp -a assets/virtualCamera.service /etc/systemd/system/virtualCamera.service
+sudo systemctl daemon-reload
+sudo systemctl unmask virtualCamera.service
+sudo systemctl enable virtualCamera.service
