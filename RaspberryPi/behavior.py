@@ -67,11 +67,15 @@ JIGGLY_FLAG = Value('b', False)
 
 def jiggly(servo=servos.get("leg"), wait=WAIT_TIME):
     global JIGGLY_FLAG, LEG_DUTY
+    RESET = False
     while 1:
         time.sleep(wait)
-        # print(LEG_DUTY.value)
+        if RESET:
+            cdc(servo, 0)
+            RESET = False
         if not JIGGLY_FLAG.value:
             continue
         cdc(servo, LEG_DUTY.value+0.5)
         time.sleep(wait)
         cdc(servo, LEG_DUTY.value-0.5)
+        RESET = True
